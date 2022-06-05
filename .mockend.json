@@ -15,7 +15,7 @@
         "maxLength": 1000
       }
     },
-    "ingredientsIDS":  { "regexp": "[0-9][0,9] {3,15}"}
+    "ingredientsIDS":  { "regexp": "[0-9][0-9] {3,15}"}
   },
 
   "Ingredient": {
