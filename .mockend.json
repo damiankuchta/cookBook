@@ -14,22 +14,7 @@
 
   },
 
-  "Step": {
-    "body": {
-      "loremWords": {
-        "minLength": 40,
-        "maxLength": 200
-      }
-    }
-  },
 
-  "Ingredient": {
-    "name": {
-      "regexp": "[A-Z][a-z]{5,10}"
-    },
-    "amount": { "regexp": "[0-9]{1,5)"},
-    "units": {"string":  ["KG", "L", "ML", "G", "UNITS"]}
-  }
 
 }
 
