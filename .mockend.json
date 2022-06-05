@@ -1,7 +1,7 @@
 {
   "Recipe": {
     "title": {
-      "loremSentences": {
+      "loremWords": {
         "minLength": 1,
         "maxLength": 3
       }
@@ -16,7 +16,7 @@
 
   "Step": {
     "body": {
-      "loremSentences": {
+      "loremWords": {
         "minLength": 5,
         "maxLength": 20
       }
