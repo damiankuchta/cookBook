@@ -25,7 +25,7 @@
     },
     "amount": { "regexp": "[0-9]{1,5)"},
     "units": {"string":  ["KG", "L", "ML", "G", "UNITS"]}
-  },
+  }
 
 }
 
