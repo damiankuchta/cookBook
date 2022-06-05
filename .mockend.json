@@ -1,5 +1,5 @@
 {
-  "Recipe": {
+  "Recipes": {
     "title": {
       "loremWords": {
         "minLength": 2,
@@ -15,7 +15,7 @@
         "maxLength": 1000
       }
     },
-    "shortDescription": {
+    "description": {
       "loremSentences": {
         "minLength": 100,
         "maxLength": 300
