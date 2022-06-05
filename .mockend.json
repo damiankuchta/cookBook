@@ -7,17 +7,15 @@
       }
     },
     "recipePictureUrl": {
-      "regexp": "https://spoonacular\\.com/recipeImages/[0-9]{5}-556x370\\.jpg"
+      "regexp": "https://spoonacular\\.com/recipeImages/[1-9][0-9]{4}-556x370\\.jpg"
     },
     "howToMake": {
       "loremParagraphs": {
         "minLength": 300,
-        "maxLength": 800
+        "maxLength": 1000
       }
     },
-    "ingredients": {
-      "hasMany": "Ingredient"
-    }
+    "ingredientsIDS":  { "regexp": "[0-9][0,9] {3,15}"}
   },
 
   "Ingredient": {
