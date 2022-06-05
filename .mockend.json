@@ -17,8 +17,8 @@
   "Step": {
     "body": {
       "loremWords": {
-        "minLength": 5,
-        "maxLength": 20
+        "minLength": 40,
+        "maxLength": 200
       }
     }
   },
