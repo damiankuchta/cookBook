@@ -1,0 +1,33 @@
+{
+  "Recipe": {
+    "title": {
+      "string": {}
+    },
+    "recipePictureUrl": {
+      "regexp": "https://spoonacular.com/recipeImages/\\[0-9]{5}\\-556x370.jpg"
+    },
+    "hasMany": "Step",
+    "hasMany": "Ingredient"
+  },
+
+  "Step": {
+    "body": {
+      "loremWords": {
+        "minLength": 5,
+        "maxLength": 20
+      }
+    }
+  },
+
+  "Ingredient": {
+    "name": {
+      "regexp": "[A-Z][a-z]{5,10}"
+    },
+    "amount": { "regexp": "[0-9]{1,5)"},
+    "units": {"string":  ["KG", "L", "ML", "G", "UNITS"]}
+  },
+
+}
+
+
+
