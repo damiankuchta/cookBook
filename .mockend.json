@@ -27,12 +27,6 @@
     "nested": {
       "checkNest": {
         "regexp": "https://spoonacular\\.com/recipeImages/[1-9][0-9]{4}-556x370\\.jpg"
-      },
-      "nest2": {
-        "loremParagraphs": {
-          "minLength": 300,
-          "maxLength": 1000
-        }
       }
     }
   },
