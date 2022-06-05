@@ -7,7 +7,7 @@
       "regexp": "https://spoonacular.com/recipeImages/\\[0-9]{5}\\-556x370.jpg"
     },
     "steps": {  "hasMany": "Step" },
-    "ingredients": { "hasMany": "Ingredient" },
+    "ingredients": { "hasMany": "Ingredient" }
 
   },
 
