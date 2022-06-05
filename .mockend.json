@@ -7,7 +7,7 @@
       }
     },
     "recipePictureUrl": {
-      "regexp": "https://spoonacular\\.com/recipeImages/[0-9]{5}-556x370.jpg"
+      "regexp": "https://spoonacular\\.com/recipeImages/[0-9]{5}-556x370\\.jpg"
     },
     "howToMake": {
       "loremParagraphs": {
