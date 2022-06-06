@@ -9,13 +9,13 @@ const amountPlaceHolderRecipes = 10
 
 export default function RecipesDashboard() {
 
-    const [recipes, setRecipes] = useState([])
+    const [recipesResponse, setRecipesResponse] = useState()
     const [isRecipesLoaded, setIsRecipesLoaded] = useState(false)
 
     useEffect(() => {
         axios.get(recipesAPI, {})
             .then((response) => {
-                setRecipes(response.data)
+                setRecipesResponse(response)
                 setIsRecipesLoaded(true)
             }).catch(function (error) {
                 //todo: set up client alert
@@ -25,9 +25,9 @@ export default function RecipesDashboard() {
     }, [])
 
     return (
-        <Row xs={1} md={2} lg={4} className={"g-3"}>
+        <Row xs={1} sm={2} md={3} lg={4} xl={5} className={"g-3"}>
             {isRecipesLoaded ?
-                recipes.map((recipe) => {
+                recipesResponse.data.map((recipe) => {
                     return <Col><RecipeCard recipe={recipe}/></Col>
                 }) : [...Array(amountPlaceHolderRecipes)].map(() => {
                     return <Col><RecipeCard/></Col>

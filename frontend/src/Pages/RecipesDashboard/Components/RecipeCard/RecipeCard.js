@@ -2,6 +2,7 @@ import React, {useState, Fragment, useEffect} from "react"
 import {Card, Placeholder} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import recipePlaceholder from "../../../../Static/recipePlaceholder.jpg";
+import ImageWithPlaceholder from "../ImageWithPlaceholder/ImageWithPlaceholder";
 
 
 export default function RecipeCard({recipe}) {
@@ -16,11 +17,9 @@ export default function RecipeCard({recipe}) {
 
     return (
         <Card>
-            {isLoaded ?
-                <Card.Img variant={'top'} src={recipe.recipePictureUrl}/>
-                :
-                <Card.Img variant={'top'} src={recipePlaceholder}/>
-            }
+                <ImageWithPlaceholder>
+                    <Card.Img variant={'top'} src={recipe?.recipePictureUrl}/>
+                </ImageWithPlaceholder>
             <Card.Body>
                 {isLoaded ?
                     <Fragment>
