@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
+import Image from "react-bootstrap/Image"
 import {useParams} from "react-router-dom";
 import {recipeAPI} from "../../App/axious";
 
@@ -23,7 +24,8 @@ export default function Recipe() {
 
     return (
         <div>
-            {isLoaded && useRecipe.title}
+            {/*<Image src={useRecipe.recipePictureUrl} alt={}/>*/}
+            {/*{isLoaded && useRecipe.title}*/}
         </div>
     )
 }

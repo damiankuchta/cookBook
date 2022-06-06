@@ -4,8 +4,6 @@ import {recipesAPI} from "../../App/axious";
 import {CardGroup, Col, Row} from "react-bootstrap"
 
 import RecipeCard from "./Components/RecipeCard/RecipeCard";
-import PlaceholderCard from "./Components/PlaceholderCard/PlaceholderCard";
-
 
 const amountPlaceHolderRecipes = 10
 
@@ -27,12 +25,12 @@ export default function RecipesDashboard() {
     }, [])
 
     return (
-        <Row xs={1} md={2} lg={4} className={"g-3 food-card"}>
+        <Row xs={1} md={2} lg={4} className={"g-3"}>
             {isRecipesLoaded ?
                 recipes.map((recipe) => {
                     return <Col><RecipeCard recipe={recipe}/></Col>
                 }) : [...Array(amountPlaceHolderRecipes)].map(() => {
-                    return <Col><PlaceholderCard/></Col>
+                    return <Col><RecipeCard/></Col>
                 })}
         </Row>
     )
