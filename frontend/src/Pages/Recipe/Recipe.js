@@ -3,92 +3,51 @@ import axios from "axios";
 import Image from "react-bootstrap/Image"
 import {useParams} from "react-router-dom";
 import {ingredientApi, ingredientsApi, recipeAPI} from "../../App/axious";
-import {Card, Col, Container, ListGroup, ListGroupItem, Row} from "react-bootstrap";
-import ImageWithPlaceholder from "../RecipesDashboard/Components/ImageWithPlaceholder/ImageWithPlaceholder";
+import {Col, Container, ListGroup, ListGroupItem, Placeholder, Row} from "react-bootstrap";
+import ImageWithPlaceholder from "../../Components/ImageWithPlaceholder/ImageWithPlaceholder";
+import Ingredients from "./Components/Ingredients/Ingredients";
+import Description from "./Components/Description/Description";
+import Steps from "./Components/howToMake/howToMake";
 
 export default function Recipe() {
 
     const [useRecipe, setRecipe] = useState()
-    const [useIngredientsID, setIngredientsID] = useState([])
-    const [useIngredients, setIngredients] = useState([])
-    const [useIsIngredientsLoaded, setIsIngredientsLoaded] = useState(false)
     const [isRecipeLoaded, setIsRecipeLoaded] = useState(false)
+
+
+
     const {id} = useParams()
 
     useEffect(() => {
         axios.get(recipeAPI(id), {})
             .then((response) => {
-                setRecipe(response.data)
-                setIsRecipeLoaded(true)
+                if (response.status === 200) {
+
+                    setRecipe(response.data)
+                    setIsRecipeLoaded(true)
+                }
             })
             .catch((error) => {
                 //todo set client alert
                 console.log(error)
+                setIsRecipeLoaded(false)
             })
     }, [])
 
-    //Get ids of ingredients
-    //todo: change when making backend
-    useEffect(() => {
-        if (isRecipeLoaded) {
-            let ingredients = []
-            useRecipe.ingredientsIDS.split(" ").map(ingredient => {
-                ingredients.push(parseInt(ingredient))
-            })
-            setIngredientsID(ingredients)
-            setIsIngredientsLoaded(true)
-        }
-    }, [isRecipeLoaded, setIngredientsID, useRecipe])
-
-    //Get ids of ingredients
-    //todo: change when making backend
-    useEffect(() => {
-        useIngredientsID.forEach((id) => {
-            axios.get(ingredientApi(id), {})
-                .then((response) => {
-                    setIngredients((ingredients) => {
-                        return [...ingredients, response.data]
-                    })
-                }).catch((error) => {
-                console.log(error)
-            })
-
-        })
-
-    }, [useIsIngredientsLoaded])
-
     return (
         <Container>
-            {isRecipeLoaded ?
-                <Row>
-                    <Col md={"auto"}>
-                        <ImageWithPlaceholder>
-                            <Image src={useRecipe.recipePictureUrl} rounded={true}/>
-                        </ImageWithPlaceholder>
+            <Row>
+                <Col md={"auto"}>
+                    <ImageWithPlaceholder element={<Image src={useRecipe?.recipePictureUrl} rounded={true}/>}/>
+                    <Ingredients ingredients={useRecipe?.ingredientsIDS} isRecipeLoaded={isRecipeLoaded}/>
+                </Col>
 
-                        <ListGroup className={"mt-3"}>
-                            {useIngredients.map((ingredient) => {
-                                return <ListGroupItem>
-                                    {ingredient.productName} {ingredient.amount}{ingredient.units}
-                                </ListGroupItem>
-                            })}
-                        </ListGroup>
+                <Col md={5}>
+                    <Description title={useRecipe?.title} description={useRecipe?.description} isLoaded={isRecipeLoaded}/>
+                    <Steps howToMake={useRecipe?.howToMake} isLoaded={isRecipeLoaded}/>
+                </Col>
 
-
-                    </Col>
-
-                    <Col md={5}>
-                        <h2>{useRecipe.title}</h2>
-                        <p>{useRecipe.description}</p>
-                    </Col>
-
-                </Row>
-                :
-                <Fragment>
-
-                </Fragment>
-
-            }
+            </Row>
 
         </Container>
     )

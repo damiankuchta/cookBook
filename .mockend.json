@@ -11,8 +11,8 @@
     },
     "howToMake": {
       "loremParagraphs": {
-        "minLength": 300,
-        "maxLength": 1000
+        "minLength": 800,
+        "maxLength": 1600
       }
     },
     "description": {
