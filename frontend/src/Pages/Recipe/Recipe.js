@@ -34,14 +34,16 @@ export default function Recipe() {
 
     return (
         <Container>
-            <Row>
-                <Col md={"auto"}>
-                    <ImageWithPlaceholder element={<Image src={useRecipe?.recipePictureUrl} rounded={true}/>}/>
+            <Row className={'d-flex justify-content-center'}>
+                <Col md={'auto'}>
+                    <ImageWithPlaceholder
+                        element={<Image src={useRecipe?.recipePictureUrl} rounded={true} className={'w-100'}/>}/>
                     <Ingredients ingredients={useRecipe?.ingredientsIDS} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
-                <Col md={5}>
-                    <Description title={useRecipe?.title} description={useRecipe?.description} isRecipeLoaded={isRecipeLoaded}/>
+                <Col >
+                    <Description title={useRecipe?.title} description={useRecipe?.description}
+                                 isRecipeLoaded={isRecipeLoaded}/>
                     <HowToMake howToMake={useRecipe?.howToMake} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
