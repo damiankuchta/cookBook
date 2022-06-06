@@ -6,12 +6,7 @@ import recipePlaceholder from "../../../../Static/recipePlaceholder.jpg";
 
 export default function RecipeCard({recipe}) {
 
-    const [isImgLoaded, setImgLoaded] = useState(false)
     const [isLoaded, setIsLoaded] = useState(false)
-
-    const imgLoaded = () => {
-        setImgLoaded(true)
-    }
 
     useEffect(() => {
         if(recipe) {
@@ -21,10 +16,10 @@ export default function RecipeCard({recipe}) {
 
     return (
         <Card>
-            {isImgLoaded && isLoaded ?
+            {isLoaded ?
                 <Card.Img variant={'top'} src={recipe.recipePictureUrl}/>
                 :
-                <Card.Img variant={'top'} src={recipePlaceholder} onLoad={imgLoaded}/>
+                <Card.Img variant={'top'} src={recipePlaceholder}/>
             }
             <Card.Body>
                 {isLoaded ?
