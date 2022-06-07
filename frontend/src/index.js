@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import "./index.css"
 import Recipe from "./Pages/Recipe/Recipe";
+import CUDRecipe from "./Pages/CUDRecipe/CUDRecipe";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -18,6 +19,7 @@ root.render(
             <Routes>
                 <Route path={''} element={<RecipesDashboard/>}/>
                 <Route path={'/:id'} element={<Recipe/>}/>
+                <Route path={'/add'} element={<CUDRecipe/>}/>
             </Routes>
         </Router>
     </React.StrictMode>
