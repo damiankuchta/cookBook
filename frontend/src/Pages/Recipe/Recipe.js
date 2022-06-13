@@ -30,21 +30,24 @@ export default function Recipe() {
                 console.log(error)
                 setIsRecipeLoaded(false)
             })
+
+
     }, [])
+
 
     return (
         <Container>
             <Row className={'d-flex justify-content-center'}>
                 <Col md={'auto'}>
                     <ImageWithPlaceholder
-                        element={<Image src={useRecipe?.recipePictureUrl} rounded={true} className={'w-100'}/>}/>
-                    <Ingredients ingredients={useRecipe?.ingredientsIDS} isRecipeLoaded={isRecipeLoaded}/>
+                        element={<Image src={useRecipe?.picture_file} rounded={true} className={'w-100'}/>}/>
+                    <Ingredients ingredients={useRecipe?.ingredients} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
                 <Col >
                     <Description title={useRecipe?.title} description={useRecipe?.description}
                                  isRecipeLoaded={isRecipeLoaded}/>
-                    <HowToMake howToMake={useRecipe?.howToMake} isRecipeLoaded={isRecipeLoaded}/>
+                    <HowToMake steps={useRecipe?.steps} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
             </Row>

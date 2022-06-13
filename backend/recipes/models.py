@@ -30,3 +30,4 @@ class Step(models.Model):
     description = models.CharField(max_length=200, validators=[MinLengthValidator(10)])
     step_number = models.IntegerField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='steps')
+#   todo: make sure step_number is in sequence

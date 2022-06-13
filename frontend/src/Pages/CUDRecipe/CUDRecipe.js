@@ -6,10 +6,17 @@ import {useForm} from "react-hook-form";
 import Errors from "./Errors/Errors";
 import axios from "axios";
 import {recipesAPI} from "../../App/axious";
+import { useNavigate } from 'react-router-dom';
 
+const maxTitleLength = 32
+const minTitleLength = 2
+
+const minDescriptionLength = 10
+const maxDescriptionLength = 200
 
 export default function CUDRecipe({}) {
 
+    const navigate = useNavigate()
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [useStepsFields, setStepsFields] = useState([<StepField number={1}
                                                                   onInitialFocus={() => addStep()}
@@ -45,7 +52,15 @@ export default function CUDRecipe({}) {
     }
 
     const onSubmit = (data) => {
-        console.log(data)
+        axios.post(recipesAPI, data)
+            .then((response) => {
+                if(response.status === 201) {
+                   navigate("/"+response.data.id)
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
 
@@ -57,10 +72,10 @@ export default function CUDRecipe({}) {
                     <Col md={10} lg={9}>
                         <Form.Control type={'text'} placeholder={'Title'} {...register('title', {
                             required: true,
-                            maxLength: 32,
-                            minLength: 3
+                            maxLength: maxTitleLength,
+                            minLength: minTitleLength
                         })}/>
-                        <Form.Text className={'text-muted'}>Between 3 and 32 chars</Form.Text>
+                        <Form.Text className={'text-muted'}>Between {minTitleLength} and {maxTitleLength} chars</Form.Text>
                         <Errors errors={errors?.title}/>
                     </Col>
                 </Form.Group>
@@ -69,10 +84,10 @@ export default function CUDRecipe({}) {
                     <Col md={10} lg={9}>
                         <Form.Control type={'text'} style={{height: "200px"}} {...register('description', {
                             required: true,
-                            maxLength: 200,
-                            minLength: 10
+                            maxLength: maxDescriptionLength,
+                            minLength: minDescriptionLength
                         })}/>
-                        <Form.Text className={'text-muted'}>Between 10 and 200 chars</Form.Text>
+                        <Form.Text className={'text-muted'}>Between {minDescriptionLength} and {maxDescriptionLength} chars</Form.Text>
                         <Errors errors={errors?.description}/>
                     </Col>
                 </Form.Group>
