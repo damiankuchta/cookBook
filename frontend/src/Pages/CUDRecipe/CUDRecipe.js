@@ -70,9 +70,9 @@ export default function CUDRecipe({}) {
                         <Form.Control type={'text'} style={{height: "200px"}} {...register('description', {
                             required: true,
                             maxLength: 200,
-                            minLength: 20
+                            minLength: 10
                         })}/>
-                        <Form.Text className={'text-muted'}>Between 2 0 and 200 chars</Form.Text>
+                        <Form.Text className={'text-muted'}>Between 10 and 200 chars</Form.Text>
                         <Errors errors={errors?.description}/>
                     </Col>
                 </Form.Group>
