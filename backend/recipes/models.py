@@ -14,7 +14,7 @@ unit_choices = (
 class Recipe(models.Model):
     title = models.CharField(max_length=32, validators=[MinLengthValidator(3)])
     description = models.CharField(max_length=200, validators=[MinLengthValidator(10)])
-    picture_file = models.FileField(upload_to='pictures/', null=True, blank=True)
+    picture_file = models.ImageField(upload_to='pictures', null=True, blank=True)
     last_update_timestamp = models.DateTimeField(auto_now_add=True)
     created_timestamp = models.DateTimeField(auto_now=True)
 

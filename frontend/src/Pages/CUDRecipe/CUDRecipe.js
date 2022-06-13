@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form";
 import Errors from "./Errors/Errors";
 import axios from "axios";
 import {recipesAPI} from "../../App/axious";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const maxTitleLength = 32
 const minTitleLength = 2
@@ -52,10 +52,25 @@ export default function CUDRecipe({}) {
     }
 
     const onSubmit = (data) => {
-        axios.post(recipesAPI, data)
+        let formData = new FormData();
+
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        //todo: I would rather have this on backend
+        let filename = (Math.random() + 1).toString(36).substring(2);
+        if(data.picture_file.length > 0) {
+            formData.append("picture_file", data.picture_file[0], filename + ".jpg");
+        }
+
+        axios.post(recipesAPI, formData, {
+            headers: {
+                'Content-type': 'multipart/form-data',
+                'Content-Disposition': 'inline; name=picture_file; filename=picture_file'
+            }
+        })
             .then((response) => {
-                if(response.status === 201) {
-                   navigate("/"+response.data.id)
+                if (response.status === 201) {
+                    navigate("/" + response.data.id)
                 }
             })
             .catch((error) => {
@@ -75,7 +90,8 @@ export default function CUDRecipe({}) {
                             maxLength: maxTitleLength,
                             minLength: minTitleLength
                         })}/>
-                        <Form.Text className={'text-muted'}>Between {minTitleLength} and {maxTitleLength} chars</Form.Text>
+                        <Form.Text
+                            className={'text-muted'}>Between {minTitleLength} and {maxTitleLength} chars</Form.Text>
                         <Errors errors={errors?.title}/>
                     </Col>
                 </Form.Group>
@@ -87,16 +103,17 @@ export default function CUDRecipe({}) {
                             maxLength: maxDescriptionLength,
                             minLength: minDescriptionLength
                         })}/>
-                        <Form.Text className={'text-muted'}>Between {minDescriptionLength} and {maxDescriptionLength} chars</Form.Text>
+                        <Form.Text
+                            className={'text-muted'}>Between {minDescriptionLength} and {maxDescriptionLength} chars</Form.Text>
                         <Errors errors={errors?.description}/>
                     </Col>
                 </Form.Group>
-                <Form.Group controlId="formFile" className="mb-3" as={Row}>
+                <Form.Group controlId="picture_file" className="mb-3" as={Row}>
                     <Form.Label column sm={2}>Picture</Form.Label>
                     <Col md={10} lg={9}>
                         {/*todo :  check if accept img works*/}
-                        <Form.Control type="file" {...register('picture')} accept={'image/*'}/>
-                        <Errors errors={errors?.picture}/>
+                        <Form.Control type="file" {...register('picture_file')} accept={'image/*'}/>
+                        <Errors errors={errors?.picture_file}/>
                     </Col>
                 </Form.Group>
 

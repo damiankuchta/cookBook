@@ -25,3 +25,5 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 
 
+
+
