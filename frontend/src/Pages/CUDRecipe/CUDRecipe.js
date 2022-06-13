@@ -4,6 +4,8 @@ import {StepField} from "./StepField/StepField";
 import IngredientField from "./IngredientField/IngredientField";
 import {useForm} from "react-hook-form";
 import Errors from "./Errors/Errors";
+import axios from "axios";
+import {recipesAPI} from "../../App/axious";
 
 
 export default function CUDRecipe({}) {
@@ -14,7 +16,8 @@ export default function CUDRecipe({}) {
                                                                   register={register}/>])
 
     const [useIngredientFields, setIngredientsFields] = useState([<IngredientField register={register}
-                                                                                   onInitialFocus={() => addIngredient()}/>])
+                                                                                   onInitialFocus={() => addIngredient()}
+                                                                                   number={1}/>])
 
     const addStep = () => {
         setStepsFields(stepForms => {
@@ -41,8 +44,8 @@ export default function CUDRecipe({}) {
         })
     }
 
-    const onSubmit = () => {
-
+    const onSubmit = (data) => {
+        console.log(data)
     }
 
 
@@ -95,8 +98,6 @@ export default function CUDRecipe({}) {
                     </Button>
                 </Col>
             </Form>
-
-
         </Container>
     )
 }
