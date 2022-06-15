@@ -58,7 +58,9 @@ export default function CUDRecipe({}) {
     } = useForm()
 
     const [useSteps, setSteps] = useState([])
+
     const [useIngredients, setIngredients] = useState([])
+    const [useIngredientsId, setIngredientsId] = useState(0)
 
     const onSubmit = (data) => {
         let formData = new FormData();
@@ -94,15 +96,27 @@ export default function CUDRecipe({}) {
         e.preventDefault()
         triggerIngredients()
             .then(isOk => {
-
                 if (isOk) {
                     const form = watchIngredients()
                     setIngredients((ingredients => {
-                        return [...ingredients, {product: form.product, amount: form.amount, unit: form.unit}]
+                        return [...ingredients, {
+                            props: {
+                                id: useIngredientsId,
+                                product: form.product,
+                                amount: form.amount,
+                                unit: form.unit,
+                            },
+
+                            functions: {
+                                onEdit: onIngredientEdit,
+                                onDelete: onIngredientDelete
+                            }
+                        }]
                     }))
                     resetIngredientFields()
                 }
             })
+        setIngredientsId(id => (id + 1))
     }
 
     const addStep = (e) => {
@@ -112,11 +126,32 @@ export default function CUDRecipe({}) {
                 if (isOK) {
                     const form = watchStep()
                     setSteps((step => {
-                        return [...step, {description: form.step}]
+                        return [...step, {description: form.step, onDelete: onStepDelete, onEdit: onStepEdit}]
                     }))
                     resetFieldStep()
                 }
             })
+    }
+
+
+    const onIngredientEdit = () => {
+
+    }
+
+    const onIngredientDelete = (id) => {
+        setIngredients(ingredient => {
+            let newIngredientList = [...ingredient]
+            newIngredientList.splice(id, 1)
+            return [...newIngredientList]
+        })
+    }
+
+    const onStepDelete = () => {
+
+    }
+
+    const onStepEdit = () => {
+
     }
 
     return (
@@ -197,7 +232,7 @@ export default function CUDRecipe({}) {
                     </Col>
                 </Form.Group>
 
-                <ListContainer list={useIngredients} component={Ingredient}/>
+                <ListContainer list={useIngredients} component={Ingredient} setItem={setIngredients}/>
 
                 <Form.Group controlId={"step"} className="mb-3" as={Row}>
                     <Form.Label column sm={2}>Add step</Form.Label>
