@@ -1,11 +1,13 @@
-import React, {useCallback, useMemo} from "react"
+import React, {useCallback, useMemo, useState} from "react"
 import {Col, Row, ListGroup} from "react-bootstrap";
 import update from 'react-addons-update';
-import DnDItem from "../DnDItem/DnDItem";
+import DnDItem from "./DnDItem/DnDItem";
+import EditableField from "../EditableField/EditableField";
 
 
-export default function ListContainer({list, component: Component, setItem}) {
+export default function ListContainer({list, listItem: ListItem, setItem, editComponent: EditComponent}) {
 
+    const [editIndex, setEditIndex] = useState(-1)
 
     const moveItem = useCallback((dragIndex, hoverIndex) => {
         setItem((prevCards) =>
@@ -18,22 +20,41 @@ export default function ListContainer({list, component: Component, setItem}) {
         )
     }, [])
 
+    const deleteItem = (index) => {
+        setItem(item => {
+            let newItemList = [...item]
+            newItemList.splice(index, 1)
+            return [...newItemList]
+        })
+    }
 
+    const editItem = (index) => {
+        setEditIndex(index)
+    }
 
     return (
-        <Row>
-            <Col lg={2}/>
-            <Col lg={9}>
-                <ListGroup variant={'flush'}>
-                        {list.map((item, index) =>
-                            (
-                                <DnDItem {...item.functions} index={index} moveItem={moveItem} id={item.props.id}>
-                                    <Component {...item.props}/>
-                                </DnDItem>
-                            )
-                        )}
-                </ListGroup>
-            </Col>
-        </Row>
+        <React.Fragment>
+            <ListGroup variant={'flush'}>
+                {list.map((item, index) =>
+                    (
+                        editIndex === index ?
+                            <EditableField setItem={setItem}
+                                           isEdited={true}
+                                           index={index}
+                                           setEditIndex={setEditIndex}
+                                           initialData={item} component={EditComponent}/>
+                            :
+                            <DnDItem onEdit={editItem}
+                                     onDelete={deleteItem}
+                                     index={index}
+                                     moveItem={moveItem}
+                                     id={item.props.id}
+                                     component={<ListItem {...item.props} index={index}/>}
+                            />
+
+                    )
+                )}
+            </ListGroup>
+        </React.Fragment>
     )
 }
