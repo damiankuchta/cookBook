@@ -1,9 +1,8 @@
-import React, {useCallback, useMemo, useState} from "react"
+import React, {useCallback, useEffect, useMemo, useState} from "react"
 import {Col, Row, ListGroup} from "react-bootstrap";
 import update from 'react-addons-update';
-import DnDItem from "./DnDItem/DnDItem";
-import EditableField from "../EditableField/EditableField";
-
+import DnDItem from "../../../Components/DnDItem/DnDItem";
+import EditableField from "../../../Components/EditableField/EditableField";
 
 export default function ListContainer({list, listItem: ListItem, setItem, editComponent: EditComponent}) {
 
@@ -18,7 +17,7 @@ export default function ListContainer({list, listItem: ListItem, setItem, editCo
                 ],
             }),
         )
-    }, [])
+    }, [setItem])
 
     const deleteItem = (index) => {
         setItem(item => {
@@ -31,6 +30,22 @@ export default function ListContainer({list, listItem: ListItem, setItem, editCo
     const editItem = (index) => {
         setEditIndex(index)
     }
+
+    //assign indexes
+    useEffect(() => {
+        list.some((listItem, index) => {
+            if (listItem?.index !== index) {
+                setItem(items => {
+                    return [...items].map((item, index) => {
+                        item['index'] = index
+                        return item
+                    })
+
+                })
+                return true
+            }
+        })
+    }, [list, setItem])
 
     return (
         <React.Fragment>

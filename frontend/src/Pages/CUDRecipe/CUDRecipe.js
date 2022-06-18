@@ -13,7 +13,8 @@ import IngredientField from "./IngredientField/IngredientField";
 
 import {requiredValidator, maxValidator, minValidator} from "./utils";
 import {maxTitleLength, minTitleLength, minDescriptionLength, maxDescriptionLength} from "./config";
-import EditableField from "./EditableField/EditableField";
+
+import EditableField from "../../Components/EditableField/EditableField";
 import StepField from "./StepField/StepField";
 
 
@@ -22,31 +23,27 @@ export default function CUDRecipe({}) {
     const navigate = useNavigate()
     const {register, handleSubmit, formState: {errors}} = useForm();
 
-    const {
-        register: registerStep,
-        watch: watchStep,
-        reset: resetFieldStep,
-        trigger: triggerStep,
-        formState: {errors: errorsStep}
-    } = useForm()
-
     const [useSteps, setSteps] = useState([])
-
     const [useIngredients, setIngredients] = useState([])
+
+    //todo: validate size of picture (use useForm validators??)
+    //todo: display picture when loaded, and cut it accordingly
 
     const onSubmit = (data) => {
         let formData = new FormData();
 
         formData.append("title", data.title);
         formData.append("description", data.description);
-        //todo: validate size of picture (use useForm validators??)
-        //todo: display picture when loaded, and cut it accordingly
+        formData.append('steps', JSON.stringify(useSteps))
+        formData.append('ingredients', JSON.stringify(useIngredients))
 
         //todo: I would rather have rename of picture on backend
         let filename = (Math.random() + 1).toString(36).substring(2);
         if (data.picture_file.length > 0) {
             formData.append("picture_file", data.picture_file[0], filename + ".jpg");
         }
+
+        console.log(...formData)
 
         axios.post(recipesAPI, formData, {
             headers: {
