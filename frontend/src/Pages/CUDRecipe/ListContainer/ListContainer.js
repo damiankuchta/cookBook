@@ -33,11 +33,11 @@ export default function ListContainer({list, listItem: ListItem, setItem, editCo
 
     //assign indexes
     useEffect(() => {
-        list.some((listItem, index) => {
-            if (listItem?.index !== index) {
-                setItem(items => {
-                    return [...items].map((item, index) => {
-                        item['index'] = index
+        list.some((localListItem, index) => {
+            if (localListItem?.props.index !== index) {
+                setItem(previousItems => {
+                    return [...previousItems].map((item, index) => {
+                        item['props']['index'] = index
                         return item
                     })
 

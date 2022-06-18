@@ -11,6 +11,7 @@ import HowToMake from "./Components/howToMake/howToMake";
 
 export default function Recipe() {
 
+    //todo: sort recipe steps and ingredients by indexes, just to make sure they are in correct order
     const [useRecipe, setRecipe] = useState()
     const [isRecipeLoaded, setIsRecipeLoaded] = useState(false)
 

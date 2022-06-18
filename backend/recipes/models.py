@@ -24,10 +24,11 @@ class Ingredient(models.Model):
     amount = models.FloatField()
     product = models.CharField(max_length=32, validators=[MinLengthValidator(2)])
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients')
+    index = models.IntegerField()
 
 
 class Step(models.Model):
-    description = models.CharField(max_length=200, validators=[MinLengthValidator(10)])
-    step_number = models.IntegerField()
+    step = models.CharField(max_length=200, validators=[MinLengthValidator(2)])
+    index = models.IntegerField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='steps')
 #   todo: make sure step_number is in sequence

@@ -43,8 +43,6 @@ export default function CUDRecipe({}) {
             formData.append("picture_file", data.picture_file[0], filename + ".jpg");
         }
 
-        console.log(...formData)
-
         axios.post(recipesAPI, formData, {
             headers: {
                 'Content-type': 'multipart/form-data',

@@ -12,7 +12,7 @@ export default function HowToMake({steps = [], isRecipeLoaded}) {
             {isRecipeLoaded ?
                 steps.length !== 0 ?
                     steps?.map((step) => {
-                        return <ListGroup.Item as={'li'}>{step.description}</ListGroup.Item>
+                        return <ListGroup.Item as={'li'}>{step.step}</ListGroup.Item>
                     })
                     :
                     <ListGroup.Item>Steps: No data</ListGroup.Item>

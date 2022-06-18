@@ -5,13 +5,13 @@ from rest_framework import serializers
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['id', 'amount', 'product', 'unit']
+        fields = ['id', 'amount', 'product', 'unit', 'index']
 
 
 class StepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Step
-        fields = ['id', 'description', 'step_number']
+        fields = ['id', 'step', 'index']
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -21,6 +21,8 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = ['id', 'picture_file', 'title', 'description', 'ingredients', 'steps']
+
+
 
 
 
