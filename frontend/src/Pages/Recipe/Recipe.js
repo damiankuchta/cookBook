@@ -7,7 +7,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import ImageWithPlaceholder from "../../Components/ImageWithPlaceholder/ImageWithPlaceholder";
 import Ingredients from "./Components/Ingredients/Ingredients";
 import Description from "./Components/Description/Description";
-import HowToMake from "./Components/howToMake/howToMake";
+import Steps from "./Components/Steps/Steps";
 
 export default function Recipe() {
 
@@ -32,7 +32,6 @@ export default function Recipe() {
                 setIsRecipeLoaded(false)
             })
 
-
     }, [])
 
 
@@ -48,7 +47,7 @@ export default function Recipe() {
                 <Col >
                     <Description title={useRecipe?.title} description={useRecipe?.description}
                                  isRecipeLoaded={isRecipeLoaded}/>
-                    <HowToMake steps={useRecipe?.steps} isRecipeLoaded={isRecipeLoaded}/>
+                    <Steps steps={useRecipe?.steps} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
             </Row>

@@ -21,7 +21,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=new_data)
         serializer.is_valid(raise_exception=True)
 
-        # Validation of ingredients and steps before recipe object creation
+        # Validation of ingredients and steps before recipe db entry creation
         steps_serializers = []
         ingredients_serializers = []
 
@@ -37,6 +37,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
         self.perform_create(serializer)
 
+        # todo: assign object without making a DB query?
         recipe_db_object = Recipe.objects.get(id=serializer.data['id'])
 
         # Creation of ingredients and steps
