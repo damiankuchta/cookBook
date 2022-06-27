@@ -13,3 +13,4 @@ export const ingredientsApi = "ingredient/"
 export const ingredientApi = (id) => {
     return ingredientsApi + id
 }
+

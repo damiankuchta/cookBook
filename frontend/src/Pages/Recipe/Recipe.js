@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios";
 import Image from "react-bootstrap/Image"
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {recipeAPI} from "../../App/axious";
-import {Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import ImageWithPlaceholder from "../../Components/ImageWithPlaceholder/ImageWithPlaceholder";
 import Ingredients from "./Components/Ingredients/Ingredients";
 import Description from "./Components/Description/Description";
@@ -14,6 +14,8 @@ export default function Recipe() {
     //todo: sort recipe steps and ingredients by indexes, just to make sure they are in correct order
     const [useRecipe, setRecipe] = useState()
     const [isRecipeLoaded, setIsRecipeLoaded] = useState(false)
+
+    const navigate = useNavigate()
 
     const {id} = useParams()
 
@@ -34,10 +36,32 @@ export default function Recipe() {
 
     }, [])
 
+    const deleteRecipe = () => {
+        axios.delete(recipeAPI(id), {})
+            .then(response => {
+                //todo: client info
+                if(response.status === 204) {
+                    navigate('/')
+                }
+            })
+            .catch(error => {
+
+                //todo: set client alert
+                console.log(error)
+            })
+    }
+
+    const editRecipe = () => {
+
+    }
 
     return (
         <Container>
             <Row className={'d-flex justify-content-center'}>
+                <div>
+                    <Button variant={'warning'} onClick={editRecipe}>Edit</Button>
+                    <Button variant={'danger'} onClick={deleteRecipe}>Delete</Button>
+                </div>
                 <Col md={'auto'}>
                     <ImageWithPlaceholder
                         element={<Image src={useRecipe?.picture_file} rounded={true} className={'w-100'}/>}/>
@@ -51,7 +75,6 @@ export default function Recipe() {
                 </Col>
 
             </Row>
-
         </Container>
     )
 }
