@@ -27,6 +27,7 @@ root.render(
                     <Route path={''} element={<RecipesDashboard/>}/>
                     <Route path={'/:id'} element={<Recipe/>}/>
                     <Route path={'/add'} element={<CUDRecipe/>}/>
+                    <Route path={'/edit/:id'} element={<CUDRecipe/>}/>
                 </Routes>
             </Router>
         </DndProvider>

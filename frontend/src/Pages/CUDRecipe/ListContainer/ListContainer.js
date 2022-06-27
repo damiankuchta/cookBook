@@ -34,10 +34,10 @@ export default function ListContainer({list, listItem: ListItem, setItem, editCo
     //assign indexes
     useEffect(() => {
         list.some((localListItem, index) => {
-            if (localListItem?.props.index !== index) {
+            if (localListItem?.index !== index) {
                 setItem(previousItems => {
                     return [...previousItems].map((item, index) => {
-                        item['props']['index'] = index
+                        item['index'] = index
                         return item
                     })
 
@@ -63,8 +63,8 @@ export default function ListContainer({list, listItem: ListItem, setItem, editCo
                                      onDelete={deleteItem}
                                      index={index}
                                      moveItem={moveItem}
-                                     id={item.props.id}
-                                     component={<ListItem {...item.props} index={index}/>}
+                                     id={item.id}
+                                     component={<ListItem {...item} index={index}/>}
                             />
 
                     )

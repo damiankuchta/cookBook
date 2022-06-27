@@ -1,10 +1,10 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {Form, Row, Col, Container, Button, Card, ListGroup} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import Errors from "./Errors/Errors";
 import axios from "axios";
-import {recipesAPI} from "../../App/axious";
-import {useNavigate} from 'react-router-dom';
+import {recipeAPI, recipesAPI} from "../../App/axious";
+import {useNavigate, useParams} from 'react-router-dom';
 import ListContainer from "./ListContainer/ListContainer";
 
 import IngredientListItem from "./ListContainer/IngredientListItem/IngredientListItem";
@@ -18,16 +18,42 @@ import EditableField from "../../Components/EditableField/EditableField";
 import StepField from "./StepField/StepField";
 
 
-export default function CUDRecipe({}) {
+export default function CUDRecipe() {
 
     const navigate = useNavigate()
+    const {id} = useParams()
+
     const {register, handleSubmit, formState: {errors}} = useForm();
 
     const [useSteps, setSteps] = useState([])
     const [useIngredients, setIngredients] = useState([])
 
+    const [useEditedRecipe, setEditedRecipe] = useState()
+    const [isRecipeLoaded, setRecipeLoaded] = useState(false)
+
     //todo: validate size of picture (use useForm validators??)
     //todo: display picture when loaded, and cut it accordingly
+
+    useEffect(() => {
+        if (id) {
+            axios.get(recipeAPI(id), {})
+                .then(response => {
+                    if (response.status === 200) {
+                        setEditedRecipe(response)
+                        setIngredients(response.data.ingredients)
+                        setSteps(response.data.steps)
+                        setRecipeLoaded(true)
+                    }
+                })
+                .catch(error => {
+
+                    //todo: alert
+                    console.log(error)
+                })
+        } else {
+            setRecipeLoaded(true)
+        }
+    }, [id])
 
     const onSubmit = (data) => {
         let formData = new FormData();
@@ -55,12 +81,15 @@ export default function CUDRecipe({}) {
                 }
             })
             .catch((error) => {
+
+                //todo: error
                 console.log(error)
             })
     }
 
     return (
         <Container>
+            {isRecipeLoaded &&
             <Form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group controlId={'title'} className="mb-3" as={Row}>
                     <Form.Label column sm={2}>Title: </Form.Label>
@@ -68,7 +97,8 @@ export default function CUDRecipe({}) {
                         <Form.Control type={'text'} placeholder={'Title'} {...register('title', {
                             required: requiredValidator(),
                             maxLength: maxValidator(maxTitleLength),
-                            minLength: minValidator(minTitleLength)
+                            minLength: minValidator(minTitleLength),
+                            value: useEditedRecipe?.data?.title
                         })}/>
                         <Form.Text
                             className={'text-muted'}>Between {minTitleLength} and {maxTitleLength} chars</Form.Text>
@@ -82,7 +112,8 @@ export default function CUDRecipe({}) {
                         <Form.Control type={'text'} style={{height: "200px"}} {...register('description', {
                             required: requiredValidator(),
                             maxLength: maxValidator(maxDescriptionLength),
-                            minLength: minValidator(minDescriptionLength)
+                            minLength: minValidator(minDescriptionLength),
+                            value: useEditedRecipe?.data?.description
                         })}/>
                         <Form.Text
                             className={'text-muted'}>Between {minDescriptionLength} and {maxDescriptionLength} chars</Form.Text>
@@ -95,6 +126,7 @@ export default function CUDRecipe({}) {
                     <Col md={10} lg={9}>
                         <Form.Control type="file" {...register('picture_file')} accept={'image/*'}/>
                         <Errors errors={errors?.picture_file}/>
+                        {/* todo: picture edit */}
                     </Col>
                 </Form.Group>
 
@@ -119,7 +151,7 @@ export default function CUDRecipe({}) {
                     </Col>
                 </Row>
 
-            </Form>
+            </Form>}
         </Container>
     )
 }

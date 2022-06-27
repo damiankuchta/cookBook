@@ -52,7 +52,7 @@ export default function Recipe() {
     }
 
     const editRecipe = () => {
-
+        navigate('/edit/'+id)
     }
 
     return (
