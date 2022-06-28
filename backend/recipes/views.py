@@ -37,12 +37,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
         self.perform_create(serializer)
 
-        # todo: assign object without making a DB query?
-        recipe_db_object = get_object_or_404(Recipe.objects.all, id=serializer.data['id'])
-
         # Creation of ingredients and steps
         for ser in serializer_list:
-            ser.save(recipe=recipe_db_object)
+            ser.save(recipe_id=serializer.data['id'])
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
