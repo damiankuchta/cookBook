@@ -1,24 +1,16 @@
 import React, {useState, Fragment, useEffect} from "react"
 import {Card, Placeholder} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import ImageWithPlaceholder from "../../../../Components/ImageWithPlaceholder/ImageWithPlaceholder";
+import recipePlaceholder from "../../../../Static/recipePlaceholder.jpg"
 
 
-export default function RecipeCard({recipe}) {
-
-    const [isLoaded, setIsLoaded] = useState(false)
-
-    useEffect(() => {
-        if (recipe) {
-            setIsLoaded(true)
-        }
-    }, [recipe])
+export default function RecipeCard({recipe={}}) {
 
     return (
         <Card>
-            <ImageWithPlaceholder element={<Card.Img variant={'top'} src={recipe?.picture_file}/>}/>
+            <Card.Img variant={'top'} src={recipe?.picture_file || recipePlaceholder}/>
             <Card.Body>
-                {isLoaded ?
+                {Object.keys(recipe).length > 0 ?
                     <Fragment>
                         <Card.Title>{recipe.title}</Card.Title>
                         <Card.Text>{recipe.description.substring(0, 100)}...</Card.Text>

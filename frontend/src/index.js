@@ -25,20 +25,20 @@ const dndBackend = isMobile ? TouchBackend : HTML5Backend
 root.render(
     <React.StrictMode>
         <DndProvider backend={dndBackend}>
+
             <Router>
                 <NavBar/>
-                <Container >
+                <Container>
                     <Routes>
-
                         <Route path={''} element={<RecipesDashboard/>}/>
                         <Route path={'/:id'} element={<Recipe/>}/>
                         <Route path={'/add'} element={<Add/>}/>
                         <Route path={'/edit/:id'} element={<Edit/>}/>
-
                     </Routes>
                 </Container>
             </Router>
-        </DndProvider>
-    </React.StrictMode>
+
+    </DndProvider>
+</React.StrictMode>
 );
 

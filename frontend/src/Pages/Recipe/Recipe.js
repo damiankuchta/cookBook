@@ -4,10 +4,11 @@ import Image from "react-bootstrap/Image"
 import {useNavigate, useParams} from "react-router-dom";
 import {recipeAPI} from "../../App/axious";
 import {Button, Col, Container, Row} from "react-bootstrap";
-import ImageWithPlaceholder from "../../Components/ImageWithPlaceholder/ImageWithPlaceholder";
 import Ingredients from "./Components/Ingredients/Ingredients";
 import Description from "./Components/Description/Description";
 import Steps from "./Components/Steps/Steps";
+
+import recipePlaceholder from "../../Static/recipePlaceholder.jpg"
 
 export default function Recipe() {
 
@@ -63,8 +64,7 @@ export default function Recipe() {
                     <Button variant={'danger'} onClick={deleteRecipe}>Delete</Button>
                 </div>
                 <Col md={'auto'}>
-                    <ImageWithPlaceholder
-                        element={<Image src={useRecipe?.picture_file} rounded={true} className={'w-100'}/>}/>
+                   <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true} className={'w-100'}/>
                     <Ingredients ingredients={useRecipe?.ingredients} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 

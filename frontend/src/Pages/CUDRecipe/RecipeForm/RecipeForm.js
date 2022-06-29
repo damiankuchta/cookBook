@@ -24,20 +24,22 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
     const [croppedImage, setCroppedImage] = useState()
 
     const onFormSubmit = (data) => {
-        croppedImage.toBlob(blob => {
-            let formData = new FormData();
-            formData.append("title", data.title);
-            formData.append("description", data.description);
-            formData.append('steps', JSON.stringify(useSteps))
-            formData.append('ingredients', JSON.stringify(useIngredients))
 
-            if (croppedImage) {
+        let formData = new FormData();
+
+        if (croppedImage) {
+            croppedImage.toBlob(blob => {
                 let filename = (Math.random() + 1).toString(36).substring(2);
                 formData.append('picture_file', blob, filename + ".png")
-            }
+            })
+        }
 
-            onSubmit(formData)
-        })
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append('steps', JSON.stringify(useSteps))
+        formData.append('ingredients', JSON.stringify(useIngredients))
+
+        onSubmit(formData)
     }
 
     const submitButton = Object.keys(initialData).length > 0 ? "save" : "create"
