@@ -43,7 +43,7 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
     const submitButton = Object.keys(initialData).length > 0 ? "save" : "create"
 
     return (
-        <Container>
+        <React.Fragment>
             <Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
                 <Row className={'d-flex justify-content-center'}>
                     <Col lg={7}>
@@ -113,6 +113,6 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
                 </Row>
 
             </Form>
-        </Container>
+        </React.Fragment>
     )
 }

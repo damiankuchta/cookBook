@@ -56,7 +56,7 @@ export default function Recipe() {
     }
 
     return (
-        <Container>
+        <React.Fragment>
             <Row className={'d-flex justify-content-center'}>
                 <div>
                     <Button variant={'warning'} onClick={editRecipe}>Edit</Button>
@@ -75,6 +75,6 @@ export default function Recipe() {
                 </Col>
 
             </Row>
-        </Container>
+        </React.Fragment>
     )
 }
