@@ -4,6 +4,8 @@ import axios from "axios";
 import {recipeAPI} from "../../App/axious";
 import {useNavigate, useParams} from 'react-router-dom';
 
+
+
 export default function Edit() {
 
     const navigate = useNavigate()
@@ -20,8 +22,8 @@ export default function Edit() {
             }
         })
             .then(response => {
-                if (response.status === 204) {
-                    navigate("/")
+                if (response.status === 200) {
+                    navigate("/" + id)
                 }
             })
             .catch(error => {

@@ -1,9 +1,8 @@
 import json
-from copy import deepcopy
+from copy import copy
 
 from rest_framework import viewsets
 from rest_framework import status
-from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
 from .models import Recipe, Step, Ingredient
@@ -15,7 +14,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
 
     def create(self, request, *args, **kwargs):
-        new_data = deepcopy(request.data)
+        new_data = copy(request.data)
         new_data['steps'] = json.loads(request.data['steps'])
         new_data['ingredients'] = json.loads(request.data['ingredients'])
 
@@ -50,28 +49,34 @@ class RecipeViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
 
-        new_data = deepcopy(request.data)
+        new_data = copy(request.data)
         new_data['steps'] = json.loads(request.data['steps'])
         new_data['ingredients'] = json.loads(request.data['ingredients'])
 
         # both ingredient and steps code looks the same, so iteration will decrease amount of code needed
-        for data_set in [{"serializer": StepSerializer, "request_data": new_data['steps'], "model": Step},
-                      {"serializer": IngredientSerializer, "request_data": new_data['ingredients'], "model": Ingredient}]:
+        for data_set in [{"serializer": StepSerializer,
+                          "request_data": new_data['steps'],
+                          "model": Step},
+
+                         {"serializer": IngredientSerializer,
+                          "request_data": new_data['ingredients'],
+                          "model": Ingredient}]:
 
             serializer_lists = []
 
-            # get all ids from objects from request data
+            # get all ids for objects from request data
             request_data_ids = [data['id'] for data in data_set['request_data'] if "id" in data]
             db_objects_list = data_set['model'].objects.filter(recipe_id=instance.id)
 
             # list contains only objects that are in database and in request data
             objects_to_update = db_objects_list.filter(id__in=request_data_ids)
 
-            # list contains objects which found in database but it's id is not present in request data
+            # list contains objects which found in database but it's id are not present in request data
             objects_to_delete = db_objects_list.exclude(
                 id__in=request_data_ids)
 
             # list contains objects from request data that are not having and any id's assigned
+            # which means it was never created
             objects_to_create = [data for data in data_set['request_data'] if "id" not in data]
 
             for update_object in objects_to_update:
@@ -94,8 +99,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
                     ser.save()
                 else:
                     ser.save(recipe=instance)
-
-
 
         if getattr(instance, '_prefetched_objects_cache', None):
             # If 'prefetch_related' has been applied to a queryset, we need to
