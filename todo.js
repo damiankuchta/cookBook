@@ -1,4 +1,3 @@
-//todo: pagination
 //todo: sorting
 //todo: Visuals 1-2D
 
