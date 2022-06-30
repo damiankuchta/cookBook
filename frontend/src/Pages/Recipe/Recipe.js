@@ -41,7 +41,7 @@ export default function Recipe() {
         axios.delete(recipeAPI(id), {})
             .then(response => {
                 //todo: client info
-                if(response.status === 204) {
+                if (response.status === 204) {
                     navigate('/')
                 }
             })
@@ -53,7 +53,7 @@ export default function Recipe() {
     }
 
     const editRecipe = () => {
-        navigate('/edit/'+id)
+        navigate('/edit/' + id)
     }
 
     return (
@@ -64,11 +64,11 @@ export default function Recipe() {
                     <Button variant={'danger'} onClick={deleteRecipe}>Delete</Button>
                 </div>
                 <Col md={'auto'}>
-                   <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true} className={'w-100'}/>
+                    <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true} className={'w-100'}/>
                     <Ingredients ingredients={useRecipe?.ingredients} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
-                <Col >
+                <Col>
                     <Description title={useRecipe?.title} description={useRecipe?.description}
                                  isRecipeLoaded={isRecipeLoaded}/>
                     <Steps steps={useRecipe?.steps} isRecipeLoaded={isRecipeLoaded}/>
