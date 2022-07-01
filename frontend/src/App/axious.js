@@ -17,8 +17,10 @@ export const recipeApiPageSort = (page, sortBy, sortDirection) => {
 }
 
 export const recipeApiPageSortTypes = (page, sortBy, sortDirection, types, title) => {
+    console.log(recipeApiPageSort(page, sortBy, sortDirection) + "&types="
+        + encodeURIComponent(types) + "&title__contains=" + title)
     return recipeApiPageSort(page, sortBy, sortDirection) + "&types="
-        + encodeURIComponent(types) + "&title=" + title
+        + encodeURIComponent(types) + "&title__contains=" + title
 }
 
 export const ingredientsApi = "ingredient/"

@@ -51,6 +51,7 @@ export default function RecipesDashboard() {
     }, [currentPage, sortByDirection, sortBy, isRecipesLoaded])
 
     const onSortSelect = (eventKey, event) => {
+        setIsRecipesLoaded(false)
         if (eventKey === sortBy.sort) {
             setSortByDirection(direction => (direction === "" ? "-" : ""))
         } else {

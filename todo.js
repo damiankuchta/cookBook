@@ -1,6 +1,3 @@
-//todo: search
-//todo: categories
-
 //todo: Visuals 1-2D
 
 //todo: Different todos all over the app 3D??

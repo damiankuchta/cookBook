@@ -35,7 +35,7 @@ class RecipeFilter(django_filters.FilterSet):
     def filter_types(self, queryset, name, value):
         split_types = unquote(value).split(',')
 
-        if split_types is None:
+        if value == "false":
             return queryset
 
         query = queryset
@@ -58,3 +58,9 @@ class RecipeFilter(django_filters.FilterSet):
         fields=(('title', 'title'), ('created_timestamp', 'created_timestamp'),
                 ('last_update_timestamp', 'last_update_timestamp'),)
     )
+
+    class Meta:
+        model = Recipe
+        fields = {
+            'title': ['contains']
+        }
