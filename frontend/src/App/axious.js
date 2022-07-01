@@ -13,7 +13,12 @@ export const recipeApiPage = (page) => {
 }
 
 export const recipeApiPageSort = (page, sortBy, sortDirection) => {
-    return recipesAPI + "?ordering="+sortDirection+sortBy + "&page="+page
+    return recipeApiPage(page) + "&ordering=" + sortDirection + sortBy
+}
+
+export const recipeApiPageSortTypes = (page, sortBy, sortDirection, types, title) => {
+    return recipeApiPageSort(page, sortBy, sortDirection) + "&types="
+        + encodeURIComponent(types) + "&title=" + title
 }
 
 export const ingredientsApi = "ingredient/"

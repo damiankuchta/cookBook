@@ -1,5 +1,6 @@
-from .models import Recipe, Ingredient, Step
-from rest_framework import serializers
+from rest_framework import serializers, fields
+
+from .models import Recipe, Ingredient, Step, RECIPE_TYPES
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -17,10 +18,11 @@ class StepSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     ingredients = IngredientSerializer(many=True, read_only=True)
     steps = StepSerializer(many=True, read_only=True)
+    types = serializers.CharField()
 
     class Meta:
         model = Recipe
-        fields = ['id', 'picture_file', 'title', 'description', 'ingredients', 'steps']
+        fields = ['id', 'picture_file', 'title', 'description', 'ingredients', 'steps', 'types']
 
 
 

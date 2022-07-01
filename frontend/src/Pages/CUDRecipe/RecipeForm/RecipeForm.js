@@ -34,8 +34,9 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
             })
         }
 
-        formData.append("title", data.title);
-        formData.append("description", data.description);
+        formData.append("title", data.title)
+        formData.append("description", data.description)
+        formData.append('types', data.types)
         formData.append('steps', JSON.stringify(useSteps))
         formData.append('ingredients', JSON.stringify(useIngredients))
 
@@ -53,7 +54,6 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
                                    uploadedFile={watch()?.picture_file}/>
                     </Col>
                 </Row>
-
 
                 <Form.Group controlId={'title'} className="mb-3" as={Row}>
                     <Form.Label column sm={2}>Title: </Form.Label>
@@ -91,6 +91,20 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
                         <Form.Control type="file" {...register('picture_file')} accept={'image/*'}/>
                         <Errors errors={errors?.picture_file}/>
                     </Col>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Check value={'breakfast'} label={'Breakfasts'} id={'breakfast'}
+                                {...register('types')}/>
+
+                    <Form.Check value={'dinner'} label={'Dinners'} id={'dinner'}
+                                {...register(('types'))}/>
+
+                    <Form.Check value={'dessert'} label={'Desserts'} id={'dessert'}
+                                {...register(('types'))}/>
+
+                    <Form.Check value={'salad'} label={'Salads'} id={'salad'}
+                                {...register(('types'))} />
                 </Form.Group>
 
                 <EditableField setItem={setIngredients} component={IngredientField}/>

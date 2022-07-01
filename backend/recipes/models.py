@@ -1,12 +1,20 @@
-from django.db import models
 from django.core.validators import MinLengthValidator
+from django.db import models
+from multiselectfield import MultiSelectField
 
-unit_choices = (
+UNIT_CHOICES = (
     ('KG', 'KG'),
     ('g', 'g'),
     ('L', 'L'),
     ('ml', 'ml'),
     ('units', 'units')
+)
+
+RECIPE_TYPES = (
+    ('dinner', 'dinner'),
+    ('breakfast', 'breakfast'),
+    ('salad', 'salad'),
+    ('dessert', 'dessert'),
 )
 
 
@@ -17,10 +25,11 @@ class Recipe(models.Model):
     picture_file = models.ImageField(upload_to='pictures', null=True, blank=True)
     last_update_timestamp = models.DateTimeField(auto_now_add=True)
     created_timestamp = models.DateTimeField(auto_now=True)
+    types = MultiSelectField(choices=RECIPE_TYPES, null=True)
 
 
 class Ingredient(models.Model):
-    unit = models.CharField(choices=unit_choices, max_length=5)
+    unit = models.CharField(choices=UNIT_CHOICES, max_length=5)
     amount = models.FloatField()
     product = models.CharField(max_length=32, validators=[MinLengthValidator(2)])
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients')

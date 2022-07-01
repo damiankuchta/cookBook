@@ -1,14 +1,14 @@
 import json
 from copy import copy
 
-from django_filters.rest_framework import DjangoFilterBackend, OrderingFilter
-
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
+from .filtersets import RecipeFilter
 from .models import Recipe, Step, Ingredient
 from .serializers import RecipeSerializer, StepSerializer, IngredientSerializer
-from .filtersets import RecipeFilter
+
 
 class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
