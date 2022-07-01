@@ -2,12 +2,11 @@ import React, {useEffect, useState} from "react"
 import ReactPaginate from 'react-paginate';
 
 import axios from "axios";
-import {recipeApiPageSort, recipeApiPageSortTypes} from "../../App/axious";
-import {Col, Container, Dropdown, Form, InputGroup, Row, ToggleButton, ToggleButtonGroup} from "react-bootstrap"
+import {recipesAPI} from "../../App/axious";
+import {Button, Col, Container, Dropdown, Form, Row} from "react-bootstrap"
 import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai"
 
 import RecipeCard from "./Components/RecipeCard/RecipeCard";
-import {Button} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 
 const amountPlaceHolderRecipes = 20
@@ -36,12 +35,18 @@ export default function RecipesDashboard() {
 
     useEffect(() => {
         if (!isRecipesLoaded) {
-            axios.get(recipeApiPageSortTypes(currentPage, sortBy.sort, sortByDirection, searchData.types, searchData.search), {})
+            axios.get(recipesAPI, {
+                params: {
+                    page: currentPage,
+                    ordering: sortByDirection + sortBy.sort,
+                    types: encodeURIComponent(searchData.types),
+                    title: searchData.search,
+                }
+            })
                 .then((response) => {
                     setPageCount(response.data.pages_amount)
                     setRecipesResponse(response)
                     setIsRecipesLoaded(true)
-                    console.log(response.data.results)
                 }).catch(function (error) {
                     //todo: set up client alert
                     console.log(error.message)

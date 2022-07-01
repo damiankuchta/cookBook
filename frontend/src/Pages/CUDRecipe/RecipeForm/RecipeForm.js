@@ -1,5 +1,5 @@
-import React, {useState, useEffect, createContext, createElement, useRef} from "react"
-import {Row, Col, Container, Button, Form, Image} from "react-bootstrap";
+import React, {useState} from "react"
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 import {useForm} from "react-hook-form";
 
@@ -11,8 +11,8 @@ import IngredientField from "../IngredientField/IngredientField";
 import EditableField from "../../../Components/EditableField/EditableField";
 import StepField from "../StepField/StepField";
 
-import {requiredValidator, maxValidator, minValidator} from "../utils";
-import {maxTitleLength, minTitleLength, minDescriptionLength, maxDescriptionLength} from "../config";
+import {maxValidator, minValidator, requiredValidator} from "../utils";
+import {maxDescriptionLength, maxTitleLength, minDescriptionLength, minTitleLength} from "../config";
 import CropImage from "../CropImage/CropImage";
 
 export default function RecipeForm({onSubmit, initialData = {}}) {

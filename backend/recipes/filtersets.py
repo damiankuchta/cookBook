@@ -1,7 +1,9 @@
+from urllib.parse import unquote
+
 import django_filters
 from django.db.models import Count, Q
-from urllib.parse import unquote
-from .models import Recipe, RECIPE_TYPES
+
+from .models import Recipe
 
 
 class CustomOrderingFilter(django_filters.OrderingFilter):
@@ -51,6 +53,8 @@ class RecipeFilter(django_filters.FilterSet):
         elif len(split_types) == 4:
             query = query.filter(Q(types__contains=split_types[0]) | Q(types__contains=split_types[1]) |
                                     Q(types__contains=split_types[2]) | Q(types__contains=split_types[3]))
+        else:
+            raise Exception('more recipe types than expected')
 
         return query
 
