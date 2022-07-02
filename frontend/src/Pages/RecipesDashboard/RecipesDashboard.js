@@ -84,28 +84,50 @@ export default function RecipesDashboard() {
             <Row>
                 <Col>
                     <Form onSubmit={handleSubmit(onFormSubmit)}>
-                        <Form.Group>
-                            <Form.Control placeholder={"Search"} aria-label={"Search"} {...register('search', {})}/>
-                        </Form.Group>
-                        <Form.Group>
+                        <Row className={'mt-2'}>
+                            <Col>
+                                <Form.Group>
+                                    <Form.Control placeholder={"Search"}
+                                                  aria-label={"Search"}
+                                                  {...register('search', {})}/>
+                                </Form.Group>
+                            </Col>
+                            <Col>
+                                <Button type={'submit'}>Search</Button>
+                            </Col>
+                        </Row>
 
-                            <Form.Check value={'breakfast'} label={'Breakfasts'} id={'breakfasts'}
-                                        {...register('types')}/>
+                            <Form.Group className={'d-flex m-2 flex-wrap'}>
+                                <Form.Check value={'breakfast'}
+                                            label={'Breakfasts'}
+                                            id={'breakfasts'}
+                                            className={'mx-2'}
+                                            {...register('types')}/>
 
-                            <Form.Check value={'dinner'} label={'Dinners'} id={'dinners'}
-                                        {...register(('types'))}/>
+                                <Form.Check value={'dinner'}
+                                            label={'Dinners'}
+                                            id={'dinners'}
+                                            className={'mx-2'}
+                                            {...register(('types'))}/>
 
-                            <Form.Check value={'dessert'} label={'Desserts'} id={'desserts'}
-                                        {...register(('types'))}/>
+                                <Form.Check value={'dessert'}
+                                            label={'Desserts'}
+                                            id={'desserts'}
+                                            className={'mx-2'}
+                                            {...register(('types'))}/>
 
-                            <Form.Check value={'salad'} label={'Salads'} id={'salads'}
-                                        {...register(('types'))} />
-                        </Form.Group>
-                        <Button type={'submit'}>Search</Button>
+                                <Form.Check value={'salad'}
+                                            label={'Salads'}
+                                            id={'salads'}
+                                            className={'mx-2'}
+                                            {...register(('types'))} />
+                            </Form.Group>
+
+
                     </Form>
                 </Col>
-                <Col>
-                    <Dropdown onSelect={onSortSelect} className={'d-inline-block w-100'}>
+                <Col sm={{span: 2}}>
+                    <Dropdown onSelect={onSortSelect} className={'d-inline-block my-2 w-100'}>
                         <Dropdown.Toggle variant="light" id="dropdown-basic" className={'w-100'}>
                             {sortBy?.name || "Sort by"}
                         </Dropdown.Toggle>
@@ -121,6 +143,7 @@ export default function RecipesDashboard() {
                     </Dropdown>
                 </Col>
             </Row>
+
             <Row className={"g-3"}>
                 {isRecipesLoaded ?
                     recipesResponse.data.results.map((recipe) => {

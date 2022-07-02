@@ -7,9 +7,9 @@ import recipePlaceholder from "../../../../Static/recipePlaceholder.jpg"
 export default function RecipeCard({recipe={}}) {
 
     return (
-        <Card>
+        <Card className={'h-100'}>
             <Card.Img variant={'top'} src={recipe?.picture_file || recipePlaceholder}/>
-            <Card.Body>
+            <Card.Body className={'d-flex flex-column justify-content-between'}>
                 {Object.keys(recipe).length > 0 ?
                     <Fragment>
                         <Card.Title>{recipe.title}</Card.Title>

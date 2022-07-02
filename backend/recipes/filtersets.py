@@ -42,7 +42,7 @@ class RecipeFilter(django_filters.FilterSet):
 
         query = queryset
 
-        # todo: very ugly, reformat!!
+        # todo: very ugly, reformat
         if len(split_types) == 1:
             query = query.filter(types__contains=split_types[0])
         elif len(split_types) == 2:
