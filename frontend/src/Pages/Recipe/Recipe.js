@@ -3,12 +3,13 @@ import axios from "axios";
 import Image from "react-bootstrap/Image"
 import {useNavigate, useParams} from "react-router-dom";
 import {recipeAPI} from "../../App/axious";
-import {Button, Col, Container, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import Ingredients from "./Components/Ingredients/Ingredients";
 import Description from "./Components/Description/Description";
 import Steps from "./Components/Steps/Steps";
 
 import recipePlaceholder from "../../Static/recipePlaceholder.jpg"
+import "./Recipe.css"
 
 export default function Recipe() {
 
@@ -59,12 +60,14 @@ export default function Recipe() {
     return (
         <React.Fragment>
             <Row className={'d-flex justify-content-center'}>
-                <div>
-                    <Button variant={'warning'} onClick={editRecipe}>Edit</Button>
-                    <Button variant={'danger'} onClick={deleteRecipe}>Delete</Button>
-                </div>
-                <Col md={'auto'}>
-                    <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true} className={'w-100'}/>
+                <Row>
+                    <Col className={'my-3'} md={{offset: 8, span: 4}} lg={{offset: 9, span: 3}}>
+                        <Button variant={'warning'} className={'mx-4'} onClick={editRecipe}>Edit</Button>
+                        <Button variant={'danger'} onClick={deleteRecipe}>Delete</Button>
+                    </Col>
+                </Row>
+                <Col md={6}>
+                    <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true} className={'recipe-image w-100'}/>
                     <Ingredients ingredients={useRecipe?.ingredients} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 

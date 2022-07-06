@@ -14,6 +14,7 @@ import StepField from "../StepField/StepField";
 import {maxValidator, minValidator, requiredValidator} from "../utils";
 import {maxDescriptionLength, maxTitleLength, minDescriptionLength, minTitleLength} from "../config";
 import CropImage from "../CropImage/CropImage";
+import RecipeTypesCheckBoxes from "../../../Components/RecipeTypesCheckBoxes/RecipeTypesCheckBoxes";
 
 export default function RecipeForm({onSubmit, initialData = {}}) {
 
@@ -47,7 +48,7 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
 
     return (
         <React.Fragment>
-            <Form noValidate onSubmit={handleSubmit(onFormSubmit)}>
+            <Form noValidate onSubmit={handleSubmit(onFormSubmit)} className={'my-5'}>
                 <Row className={'d-flex justify-content-center'}>
                     <Col lg={7}>
                         <CropImage defaultImage={initialData?.picture_file || null} setCroppedImage={setCroppedImage}
@@ -93,18 +94,9 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
                     </Col>
                 </Form.Group>
 
-                <Form.Group>
-                    <Form.Check value={'breakfast'} label={'Breakfasts'} id={'breakfast'}
-                                {...register('types')}/>
-
-                    <Form.Check value={'dinner'} label={'Dinners'} id={'dinner'}
-                                {...register(('types'))}/>
-
-                    <Form.Check value={'dessert'} label={'Desserts'} id={'dessert'}
-                                {...register(('types'))}/>
-
-                    <Form.Check value={'salad'} label={'Salads'} id={'salad'}
-                                {...register(('types'))} />
+                <Form.Group className={'d-flex mb-4'}>
+                    <Form.Label column sm={2}>Category</Form.Label>
+                    <RecipeTypesCheckBoxes register={register}/>
                 </Form.Group>
 
                 <EditableField setItem={setIngredients} component={IngredientField}/>
@@ -120,7 +112,7 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
                                setItem={setSteps}
                                editComponent={StepField}/>
 
-                <Row>
+                <Row className={'my-5'}>
                     <Col lg={11}>
                         <Button type={'submit'} className={'w-100'}>
                             {submitButton}

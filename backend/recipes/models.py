@@ -15,6 +15,7 @@ RECIPE_TYPES = (
     ('breakfast', 'breakfast'),
     ('salad', 'salad'),
     ('dessert', 'dessert'),
+    ('snack', 'snack'),
 )
 
 

@@ -8,6 +8,7 @@ import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai"
 
 import RecipeCard from "./Components/RecipeCard/RecipeCard";
 import {useForm} from "react-hook-form";
+import RecipeTypesCheckBoxes from "../../Components/RecipeTypesCheckBoxes/RecipeTypesCheckBoxes";
 
 const amountPlaceHolderRecipes = 20
 
@@ -40,7 +41,7 @@ export default function RecipesDashboard() {
                     page: currentPage,
                     ordering: sortByDirection + sortBy.sort,
                     types: encodeURIComponent(searchData.types),
-                    title: searchData.search,
+                    title__contains: searchData.search,
                 }
             })
                 .then((response) => {
@@ -98,31 +99,8 @@ export default function RecipesDashboard() {
                         </Row>
 
                             <Form.Group className={'d-flex m-2 flex-wrap'}>
-                                <Form.Check value={'breakfast'}
-                                            label={'Breakfasts'}
-                                            id={'breakfasts'}
-                                            className={'mx-2'}
-                                            {...register('types')}/>
-
-                                <Form.Check value={'dinner'}
-                                            label={'Dinners'}
-                                            id={'dinners'}
-                                            className={'mx-2'}
-                                            {...register(('types'))}/>
-
-                                <Form.Check value={'dessert'}
-                                            label={'Desserts'}
-                                            id={'desserts'}
-                                            className={'mx-2'}
-                                            {...register(('types'))}/>
-
-                                <Form.Check value={'salad'}
-                                            label={'Salads'}
-                                            id={'salads'}
-                                            className={'mx-2'}
-                                            {...register(('types'))} />
+                                <RecipeTypesCheckBoxes register={register}/>
                             </Form.Group>
-
 
                     </Form>
                 </Col>

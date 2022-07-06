@@ -14,7 +14,7 @@ export default function RecipeCard({recipe={}}) {
                     <Fragment>
                         <Card.Title>{recipe.title}</Card.Title>
                         <Card.Text>{recipe.description.substring(0, 100)}...</Card.Text>
-                        <Link to={"/" + recipe.id}>Go to recipe</Link>
+                        <Link className={'btn btn-outline-dark w-50'} to={"/" + recipe.id}>Go to recipe</Link>
                     </Fragment>
                     :
                     <Fragment>

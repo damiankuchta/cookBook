@@ -3,30 +3,30 @@ import {ListGroup, Placeholder} from "react-bootstrap";
 
 export default function Steps({steps = [], isRecipeLoaded}) {
 
-    //todo: make steps in order.
+    const renderSteps = () => {
+        const recipeHasSteps = steps.length !== 0
+        return (recipeHasSteps ? steps?.map((step) =>
+                    (<ListGroup.Item as={'li'}>{step.step}</ListGroup.Item>))
+                :
+                <ListGroup.Item className={'fw-bolder'}>Recipe has no Steps</ListGroup.Item>
+        )
+    }
+
+    const renderPlaceholders = () => ([...Array(14)].map(() =>
+            (
+                <Placeholder as={ListGroup.Item} animation="glow">
+                    <Placeholder className={'w-75'}/>
+                    <Placeholder className={'w-100'}/>
+                    <Placeholder className={'w-25'}/>
+                </Placeholder>
+
+            ))
+    )
 
     return (
 
         <ListGroup as={'ol'} variant={'flush'} numbered>
-            {isRecipeLoaded ?
-                steps.length !== 0 ?
-                    steps?.map((step) => {
-                        return <ListGroup.Item as={'li'}>{step.step}</ListGroup.Item>
-                    })
-                    :
-                    <ListGroup.Item>Steps: No data</ListGroup.Item>
-
-                :
-                [...Array(14)].map(() => {
-                    return (
-                        <Placeholder as={ListGroup.Item} animation="glow">
-                            <Placeholder className={'w-75'}/>
-                            <Placeholder className={'w-100'}/>
-                            <Placeholder className={'w-25'}/>
-                        </Placeholder>
-
-                    )
-                })}
+            {isRecipeLoaded ? renderSteps() : renderPlaceholders()}
         </ListGroup>
 
 
