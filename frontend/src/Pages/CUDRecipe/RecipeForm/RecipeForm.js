@@ -74,7 +74,7 @@ export default function RecipeForm({onSubmit, initialData = {}}) {
                 <Form.Group controlId={'description'} className="mb-3" as={Row}>
                     <Form.Label column sm={2}>Description: </Form.Label>
                     <Col md={10} lg={9}>
-                        <Form.Control type={'text'} style={{height: "200px"}} {...register('description', {
+                        <Form.Control as={'textarea'} rows={3} {...register('description', {
                             required: requiredValidator(),
                             maxLength: maxValidator(maxDescriptionLength),
                             minLength: minValidator(minDescriptionLength),

@@ -70,7 +70,7 @@ export default function RecipesDashboard() {
         setIsRecipesLoaded(false)
     }
 
-    const directionArrow = sortByDirection === '' ? <AiOutlineArrowDown/> : <AiOutlineArrowUp/>
+    const directionArrow = sortByDirection === '' ? <AiOutlineArrowUp/> : <AiOutlineArrowDown/>
 
     //todo: shared config between back and frontend??
     //todo: boiler code

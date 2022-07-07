@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_cleanup.apps.CleanupConfig',
     'django_filters',
     'corsheaders',
     'multiselectfield',

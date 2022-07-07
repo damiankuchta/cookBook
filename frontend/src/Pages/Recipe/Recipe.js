@@ -3,7 +3,7 @@ import axios from "axios";
 import Image from "react-bootstrap/Image"
 import {useNavigate, useParams} from "react-router-dom";
 import {recipeAPI} from "../../App/axious";
-import {Button, Col, Row} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import Ingredients from "./Components/Ingredients/Ingredients";
 import Description from "./Components/Description/Description";
 import Steps from "./Components/Steps/Steps";
@@ -57,6 +57,14 @@ export default function Recipe() {
         navigate('/edit/' + id)
     }
 
+    console.log(useRecipe)
+
+    const renderRecipeTypes = <Row>
+        {useRecipe?.types?.split(", ").map(type => (
+            <Col xs={4}><Card className={'d-flex align-items-center my-1'}>{type}</Card></Col>
+        ))}
+    </Row>
+
     return (
         <React.Fragment>
             <Row className={'d-flex justify-content-center'}>
@@ -67,13 +75,15 @@ export default function Recipe() {
                     </Col>
                 </Row>
                 <Col md={6}>
-                    <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true} className={'recipe-image w-100'}/>
+                    <Image src={useRecipe?.picture_file || recipePlaceholder} rounded={true}
+                           className={'recipe-image w-100'}/>
                     <Ingredients ingredients={useRecipe?.ingredients} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 
                 <Col>
                     <Description title={useRecipe?.title} description={useRecipe?.description}
                                  isRecipeLoaded={isRecipeLoaded}/>
+                    {renderRecipeTypes}
                     <Steps steps={useRecipe?.steps} isRecipeLoaded={isRecipeLoaded}/>
                 </Col>
 

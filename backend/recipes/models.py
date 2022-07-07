@@ -28,6 +28,10 @@ class Recipe(models.Model):
     created_timestamp = models.DateTimeField(auto_now=True)
     types = MultiSelectField(choices=RECIPE_TYPES, null=True)
 
+    def delete(self, using=None, keep_parents=False):
+        self.picture_file.delete(save=True)
+        return super().delete(using, keep_parents)
+
 
 class Ingredient(models.Model):
     unit = models.CharField(choices=UNIT_CHOICES, max_length=5)
@@ -41,4 +45,3 @@ class Step(models.Model):
     step = models.CharField(max_length=200, validators=[MinLengthValidator(2)])
     index = models.IntegerField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='steps')
-#   todo: make sure step_number is in sequence
