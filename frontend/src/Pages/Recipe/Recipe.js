@@ -10,54 +10,39 @@ import Steps from "./Components/Steps/Steps";
 
 import recipePlaceholder from "../../Static/recipePlaceholder.jpg"
 import "./Recipe.css"
+import {useDispatch} from "react-redux";
+import {setError} from "../../Reducers/alertSlice";
+import {axiosErrors} from "../../utils/axiosErrors";
 
 export default function Recipe() {
 
-    //todo: sort recipe steps and ingredients by indexes, just to make sure they are in correct order
     const [useRecipe, setRecipe] = useState()
     const [isRecipeLoaded, setIsRecipeLoaded] = useState(false)
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const {id} = useParams()
 
     useEffect(() => {
         axios.get(recipeAPI(id), {})
             .then((response) => {
-                if (response.status === 200) {
-
-                    setRecipe(response.data)
-                    setIsRecipeLoaded(true)
-                }
-            })
-            .catch((error) => {
-                //todo set client alert
-                console.log(error)
-                setIsRecipeLoaded(false)
-            })
+                setRecipe(response.data)
+                setIsRecipeLoaded(true)
+            }).catch((error) => axiosErrors(error, dispatch, setError));
 
     }, [])
 
     const deleteRecipe = () => {
         axios.delete(recipeAPI(id), {})
             .then(response => {
-                //todo: client info
-                if (response.status === 204) {
-                    navigate('/')
-                }
-            })
-            .catch(error => {
-
-                //todo: set client alert
-                console.log(error)
-            })
+                navigate('/')
+            }).catch((error) => axiosErrors(error, dispatch, setError));
     }
 
     const editRecipe = () => {
         navigate('/edit/' + id)
     }
-
-    console.log(useRecipe)
 
     const renderRecipeTypes = <Row>
         {useRecipe?.types?.split(", ").map(type => (

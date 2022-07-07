@@ -9,6 +9,9 @@ import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai"
 import RecipeCard from "./Components/RecipeCard/RecipeCard";
 import {useForm} from "react-hook-form";
 import RecipeTypesCheckBoxes from "../../Components/RecipeTypesCheckBoxes/RecipeTypesCheckBoxes";
+import {axiosErrors} from "../../utils/axiosErrors";
+import {setError} from "../../Reducers/alertSlice";
+import {useDispatch} from "react-redux";
 
 const amountPlaceHolderRecipes = 20
 
@@ -26,7 +29,7 @@ export default function RecipesDashboard() {
     const [searchData, setSearchData] = useState({search: "", types: []});
 
     const {register, handleSubmit} = useForm()
-
+    const dispatch = useDispatch()
 
     const handlePageClick = (e) => {
         setCurrentPage(e.selected + 1)
@@ -48,11 +51,7 @@ export default function RecipesDashboard() {
                     setPageCount(response.data.pages_amount)
                     setRecipesResponse(response)
                     setIsRecipesLoaded(true)
-                }).catch(function (error) {
-                    //todo: set up client alert
-                    console.log(error.message)
-                }
-            )
+                }).catch((error) => axiosErrors(error, dispatch, setError));
         }
     }, [currentPage, sortByDirection, sortBy, isRecipesLoaded])
 
@@ -98,9 +97,9 @@ export default function RecipesDashboard() {
                             </Col>
                         </Row>
 
-                            <Form.Group className={'d-flex m-2 flex-wrap'}>
-                                <RecipeTypesCheckBoxes register={register}/>
-                            </Form.Group>
+                        <Form.Group className={'d-flex m-2 flex-wrap'}>
+                            <RecipeTypesCheckBoxes register={register}/>
+                        </Form.Group>
 
                     </Form>
                 </Col>

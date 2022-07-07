@@ -2,10 +2,14 @@ import RecipeForm from "./RecipeForm/RecipeForm";
 import axios from "axios";
 import {recipesAPI} from "../../App/axious";
 import {useNavigate} from "react-router-dom";
+import {axiosErrors} from "../../utils/axiosErrors";
+import {setError} from "../../Reducers/alertSlice";
+import {useDispatch} from "react-redux";
 
 export default function Add() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const onSubmit = (data) => {
         axios.post(recipesAPI, data, {
@@ -19,11 +23,7 @@ export default function Add() {
                     navigate("/" + response.data.id)
                 }
             })
-            .catch((error) => {
-
-                //todo: error
-                console.log(error)
-            })
+           .catch((error) => axiosErrors(error, dispatch, setError));
     }
 
     return (
