@@ -17,14 +17,12 @@ import Alert from "../Components/Alert/Alert";
 
 export default function App() {
 
-
-
     const dndBackend = useCallback(() => {
         return isMobile ? TouchBackend : HTML5Backend
     }, [isMobile])
 
     return (
-        <DndProvider backend={dndBackend}>
+        <DndProvider backend={dndBackend()}>
             <Provider store={store}>
                 <Router>
                     <NavBar/>

@@ -1,7 +1,6 @@
 import {setError} from "../Reducers/alertSlice";
 
 export function axiosErrors(error, dispatch, setError) {
-    console.log(error)
     if (error.response) {
         dispatch(setError({
             message: error.message,
